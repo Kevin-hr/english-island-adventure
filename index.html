@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f6f72" />
+    <meta
+      name="description"
+      content="面向5–7岁儿童的英语冒险闯关游戏。听、说、拖、拼，修复动物港。"
+    />
+    <title>英语岛大冒险</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell" id="app-shell">
+      <header class="topbar">
+        <button class="brand" id="home-button" aria-label="返回动物港地图">
+          <span class="brand-mark" aria-hidden="true">⛵</span>
+          <span>
+            <strong>英语岛大冒险</strong>
+            <small>Animal Harbor</small>
+          </span>
+        </button>
+
+        <div class="topbar-actions">
+          <div class="spark-counter" aria-label="声音火花">
+            <span aria-hidden="true">✨</span>
+            <strong id="spark-count">0</strong>
+          </div>
+          <button class="icon-button" id="sound-toggle" aria-label="关闭声音">🔊</button>
+          <button class="parent-button" id="parent-button">家长区</button>
+        </div>
+      </header>
+
+      <main id="screen" class="screen" aria-live="polite"></main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <dialog class="modal" id="parent-gate-dialog">
+      <form method="dialog" class="modal-card" id="parent-gate-form">
+        <button class="modal-close" value="cancel" aria-label="关闭">×</button>
+        <div class="modal-icon" aria-hidden="true">🧭</div>
+        <h2>家长验证</h2>
+        <p>请回答：<strong id="gate-question">7 + 5 = ?</strong></p>
+        <label class="sr-only" for="gate-answer">答案</label>
+        <input
+          id="gate-answer"
+          class="gate-input"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="输入答案"
+          required
+        />
+        <p class="form-error" id="gate-error"></p>
+        <button class="primary-button wide" value="default">进入家长区</button>
+      </form>
+    </dialog>
+
+    <dialog class="modal parent-modal" id="parent-panel-dialog">
+      <section class="modal-card parent-panel">
+        <button class="modal-close" id="close-parent-panel" aria-label="关闭">×</button>
+        <div class="parent-heading">
+          <div class="modal-icon" aria-hidden="true">🧭</div>
+          <div>
+            <p class="eyebrow">领航员面板</p>
+            <h2>本机学习报告</h2>
+          </div>
+        </div>
+        <div id="parent-report"></div>
+      </section>
+    </dialog>
+
+    <dialog class="modal" id="break-dialog">
+      <section class="modal-card break-card">
+        <div class="modal-icon" aria-hidden="true">🌙</div>
+        <h2>今天航行得很棒</h2>
+        <p>眼睛和身体也要休息一下。去喝水、看看远处吧。</p>
+        <button class="primary-button wide" id="finish-session">今天完成</button>
+        <button class="text-button" id="parent-continue">家长继续本次航行</button>
+      </section>
+    </dialog>
+
+    <noscript>这个游戏需要启用 JavaScript。</noscript>
+    <script src="game-core.js"></script>
+    <script src="levels.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
