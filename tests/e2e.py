@@ -8,7 +8,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 
-BASE_URL = os.environ.get("GAME_URL", "http://127.0.0.1:4173/?v=9")
+BASE_URL = os.environ.get("GAME_URL", "http://127.0.0.1:4173/?v=12")
 ARTIFACTS = Path(__file__).parent / "artifacts"
 ARTIFACTS.mkdir(parents=True, exist_ok=True)
 

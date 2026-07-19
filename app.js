@@ -89,50 +89,63 @@
       .replaceAll("'", "&#039;");
   }
 
-  function kuromiMascot() {
+  function zimiMascot() {
     return `
-      <svg class="kuromi-hero" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="zimi-hero" viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <linearGradient id="heroHood" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#2a1b3d"/>
             <stop offset="100%" stop-color="#1a1025"/>
           </linearGradient>
+          <linearGradient id="bowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff5aa6"/>
+            <stop offset="100%" stop-color="#ff3d8a"/>
+          </linearGradient>
         </defs>
-        <!-- hood back -->
-        <path d="M50 160c0-60 42-108 94-108s94 48 94 108c0 35-15 61-38 78-20 14-42 22-56 22s-36-8-56-22c-23-17-38-43-38-78z" fill="url(#heroHood)"/>
-        <!-- ears -->
-        <path d="M85 95c-20-30-30-62-26-92 16 24 36 44 58 58-10 14-22 26-32 34z" fill="url(#heroHood)"/>
-        <path d="M155 95c20-30 30-62 26-92-16 24-36 44-58 58 10 14 22 26 32 34z" fill="url(#heroHood)"/>
-        <!-- face -->
-        <ellipse cx="120" cy="165" rx="58" ry="52" fill="#fff8fb"/>
-        <!-- skull -->
-        <g transform="translate(120, 130)">
-          <ellipse rx="14" ry="17" fill="#ff5aa6"/>
-          <circle cx="-5" cy="-4" r="3.5" fill="#1a1025"/>
-          <circle cx="5" cy="-4" r="3.5" fill="#1a1025"/>
-          <ellipse cy="5" rx="4" ry="3" fill="#1a1025"/>
+        <!-- Kuromi hood (black jester-style) -->
+        <path d="M50 165c0-60 42-108 94-108s94 48 94 108c0 35-15 61-38 78-20 14-42 22-56 22s-36-8-56-22c-23-17-38-43-38-78z" fill="url(#heroHood)"/>
+        <!-- Pointed Kuromi ears (not round rabbit) -->
+        <path d="M82 100l12-72 18 58z" fill="url(#heroHood)"/>
+        <path d="M158 100l-12-72-18 58z" fill="url(#heroHood)"/>
+        <!-- Inner ear pink -->
+        <path d="M88 88l6-48 12 40z" fill="#ff5aa6" opacity="0.6"/>
+        <path d="M152 88l-6-48-12 40z" fill="#ff5aa6" opacity="0.6"/>
+        <!-- White face -->
+        <ellipse cx="120" cy="168" rx="58" ry="52" fill="#fff8fb"/>
+        <!-- Kuromi skull-and-bow on forehead -->
+        <!-- Skull -->
+        <circle cx="108" cy="138" r="8" fill="white" stroke="#1a1025" stroke-width="2"/>
+        <circle cx="132" cy="138" r="8" fill="white" stroke="#1a1025" stroke-width="2"/>
+        <ellipse cx="120" cy="148" rx="6" ry="3" fill="white" stroke="#1a1025" stroke-width="1.5"/>
+        <line x1="116" y1="148" x2="124" y2="148" stroke="#1a1025" stroke-width="1"/>
+        <!-- Eyes (Kuromi style - angular/sulky) -->
+        <ellipse cx="100" cy="170" rx="9" ry="11" fill="#1a1025"/>
+        <ellipse cx="140" cy="170" rx="9" ry="11" fill="#1a1025"/>
+        <circle cx="103" cy="167" r="3" fill="#fff"/>
+        <circle cx="143" cy="167" r="3" fill="#fff"/>
+        <!-- Nose -->
+        <ellipse cx="120" cy="184" rx="3" ry="2.5" fill="#1a1025"/>
+        <!-- Kuromi smirk -->
+        <path d="M108 192q12 2 24 0" stroke="#1a1025" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Blush -->
+        <ellipse cx="84" cy="186" rx="10" ry="6" fill="#ff8fc4" opacity="0.45"/>
+        <ellipse cx="156" cy="186" rx="10" ry="6" fill="#ff8fc4" opacity="0.45"/>
+        <!-- Kuromi bow (left ear) -->
+        <g transform="translate(62, 48) rotate(-25)">
+          <ellipse cx="-8" cy="0" rx="12" ry="8" fill="url(#bowGrad)" stroke="#1a1025" stroke-width="1.5"/>
+          <ellipse cx="8" cy="0" rx="12" ry="8" fill="url(#bowGrad)" stroke="#1a1025" stroke-width="1.5"/>
+          <circle r="4" fill="#ff3d8a" stroke="#1a1025" stroke-width="1"/>
+          <!-- Mini skull on bow -->
+          <circle cx="0" cy="-1" r="2.5" fill="white"/>
+          <circle cx="-1" cy="-1.5" r="0.7" fill="#1a1025"/>
+          <circle cx="1" cy="-1.5" r="0.7" fill="#1a1025"/>
         </g>
-        <!-- eyes -->
-        <ellipse cx="95" cy="168" rx="10" ry="14" fill="#1a1025"/>
-        <ellipse cx="145" cy="168" rx="10" ry="14" fill="#1a1025"/>
-        <circle cx="98" cy="164" r="3" fill="#fff"/>
-        <circle cx="148" cy="164" r="3" fill="#fff"/>
-        <!-- nose -->
-        <ellipse cx="120" cy="183" rx="4.5" ry="3.5" fill="#ff5aa6"/>
-        <!-- mouth -->
-        <path d="M112 193q8 9 16 0" stroke="#1a1025" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <!-- blush -->
-        <ellipse cx="82" cy="185" rx="9" ry="6" fill="#ff8fc4" opacity="0.5"/>
-        <ellipse cx="158" cy="185" rx="9" ry="6" fill="#ff8fc4" opacity="0.5"/>
-        <!-- bow -->
-        <g transform="translate(68, 85) rotate(-20)">
-          <ellipse cx="-12" cy="0" rx="13" ry="9" fill="#ff5aa6"/>
-          <ellipse cx="12" cy="0" rx="13" ry="9" fill="#ff5aa6"/>
-          <circle r="6.5" fill="#ff3d8a"/>
-        </g>
-        <!-- tail -->
-        <path d="M170 205q18 6 24 22" stroke="url(#heroHood)" stroke-width="7" stroke-linecap="round" fill="none"/>
-        <ellipse cx="197" cy="230" rx="6" ry="8" fill="#ff5aa6" transform="rotate(30 197 230)"/>
+        <!-- Tail -->
+        <path d="M172 210q16 4 22 18" stroke="url(#heroHood)" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <ellipse cx="198" cy="232" rx="6" ry="8" fill="#ff5aa6" transform="rotate(25 198 232)"/>
+        <!-- Floating hearts -->
+        <text x="30" y="210" font-size="16" fill="#ff5aa6" opacity="0.7">♥</text>
+        <text x="185" y="145" font-size="12" fill="#c49dff" opacity="0.6">✦</text>
       </svg>
     `;
   }
@@ -313,8 +326,14 @@
             <div class="progress-track"><div class="progress-fill" style="width:${progress}%"></div></div>
           </div>
         </div>
-        <div class="harbor-scene" aria-label="库洛米插画">
-          ${kuromiMascot()}
+        <div class="harbor-scene" aria-label="库洛米和伙伴们">
+          <div class="dream-reward reward-heart" aria-hidden="true">♥</div>
+          <div class="dream-reward reward-star" aria-hidden="true">✦</div>
+          <div class="dream-reward reward-gem" aria-hidden="true">◆</div>
+          <div class="dream-reward reward-note" aria-hidden="true">♪</div>
+          <div class="dream-companion dream-bat" aria-hidden="true"><span>🦇</span></div>
+          ${zimiMascot()}
+          <div class="dream-companion star-cat" aria-hidden="true"><span>🐈‍⬛</span></div>
           <div class="world-badge" aria-hidden="true">${activeWorld.scene[1]}</div>
         </div>
       </section>
@@ -401,7 +420,7 @@
         </div>
         <article class="level-card-main">
           <header class="level-heading">
-            <div class="nori" aria-hidden="true">🎀</div>
+            <div class="nori" aria-hidden="true"><span class="mini-zimi-face">•ᴗ•</span></div>
             <div>
               <p class="eyebrow">Mission ${level.number}</p>
               <h1>${escapeHtml(level.title)}</h1>
@@ -504,7 +523,7 @@
         void button.offsetWidth;
         button.classList.add("wrong");
         const feedback = document.querySelector("#feedback");
-        feedback.textContent = currentMetrics.mistakes >= 2 ? "再听一次，发光的卡片会帮你" : "Nori 没听懂，我们再试一次";
+        feedback.textContent = currentMetrics.mistakes >= 2 ? "再听一次，发光的卡片会帮你" : "库洛米没听懂，再试一次";
         feedback.classList.add("hint-text");
         if (currentMetrics.mistakes >= 2) {
           root.querySelector(`[data-answer="${CSS.escape(config.answer)}"]`)?.classList.add("hint");
@@ -1165,10 +1184,10 @@
       saveState();
     });
     parentReport.querySelector("#preview-voice").addEventListener("click", () => {
-      speak("Hello! I am Nori. Let's go to Animal Harbor.");
+      speak("Hello! I am Kuromi. Let's go to Animal Harbor.");
     });
     parentReport.querySelector("#preview-course").addEventListener("click", () => {
-      speak("Hello! I am Nori. Let's go to Animal Harbor.", {
+      speak("Hello! I am Kuromi. Let's go to Animal Harbor.", {
         clip: "audio/nori-preview.mp3",
       });
     });

@@ -1,17 +1,17 @@
 {
-  "name": "英语岛大冒险 · 紫梦兔乐园",
-  "short_name": "英语岛",
-  "description": "面向5-7岁儿童的英语冒险闯关游戏。和原创紫梦兔一起完成28关学习冒险。",
+  "name": "英语岛大冒险 · Kuromi Zone",
+  "short_name": "Kuromi Zone",
+  "description": "面向5-7岁儿童的英语冒险闯关游戏。和库洛米一起完成28关学习冒险——骷髅头蝴蝶结的暗黑可爱世界。",
   "lang": "zh-CN",
-  "start_url": "./index.html?v=11",
+  "start_url": "./index.html?v=13",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#fbf9ff",
-  "theme_color": "#5f35b5",
+  "background_color": "#fff8fb",
+  "theme_color": "#ff3d8a",
   "icons": [
     {
-      "src": "icon.svg?v=11",
+      "src": "icon.svg?v=13",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
