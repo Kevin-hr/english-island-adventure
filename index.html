@@ -3,21 +3,56 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ff5aa6" />
-    <meta
-      name="description"
-      content="面向5–7岁儿童的英语冒险闯关游戏。库洛米甜酷风，28关英语冒险。"
-    />
-    <title>英语岛大冒险 · 库洛米甜酷版</title>
-    <link rel="manifest" href="manifest.webmanifest?v=10" />
-    <link rel="icon" href="icon.svg?v=10" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <meta name="theme-color" content="#5f35b5" />
+    <meta name="description" content="面向5–7岁儿童的英语冒险闯关游戏。和原创紫梦兔一起完成28关学习冒险。" />
+    <title>英语岛大冒险 · 紫梦兔乐园</title>
+    <link rel="manifest" href="manifest.webmanifest?v=11" />
+    <link rel="icon" href="icon.svg?v=11" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=11" />
   </head>
   <body>
+    <!-- Floating decorative particles layer -->
+    <div class="particles" aria-hidden="true">
+      <div class="particle gem" style="left:8%;top:12%;animation-delay:0s;">◆</div>
+      <div class="particle heart" style="left:18%;top:35%;animation-delay:1.2s;">💜</div>
+      <div class="particle bow" style="left:85%;top:18%;animation-delay:2.5s;">🎀</div>
+      <div class="particle star" style="left:72%;top:65%;animation-delay:0.8s;">✨</div>
+      <div class="particle moon" style="left:5%;top:70%;animation-delay:3.1s;">🌙</div>
+      <div class="particle note" style="left:92%;top:45%;animation-delay:1.8s;">♪</div>
+      <div class="particle heart" style="left:45%;top:8%;animation-delay:4.2s;">💜</div>
+      <div class="particle star" style="left:60%;top:88%;animation-delay:2.0s;">✨</div>
+    </div>
+
     <div class="app-shell" id="app-shell">
       <header class="topbar">
         <button class="brand" id="home-button" aria-label="返回英语岛地图">
-          <span class="brand-mark" aria-hidden="true">⛵</span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="brand-svg">
+              <defs>
+                <linearGradient id="bmGrad" x1="0" y1="0" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#7c4dff"/>
+                  <stop offset="100%" stop-color="#4b238c"/>
+                </linearGradient>
+              </defs>
+              <rect width="100" height="100" rx="28" fill="url(#bmGrad)"/>
+              <!-- Original rounded rabbit ears -->
+              <path d="M29 51c-9-17-9-34-4-43 10 7 16 18 19 31" fill="#2d164b"/>
+              <path d="M71 51c9-17 9-34 4-43-10 7-16 18-19 31" fill="#2d164b"/>
+              <!-- Face -->
+              <ellipse cx="50" cy="58" rx="26" ry="22" fill="#fff"/>
+              <!-- Heart badge -->
+              <path d="M50 51c-10-6-10-15-4-17 3-1 5 1 6 3 2-3 5-4 8-2 5 4 2 11-10 16z" fill="#ff5aac"/>
+              <!-- Eyes -->
+              <ellipse cx="40" cy="58" rx="5" ry="6" fill="#1a1025"/>
+              <ellipse cx="60" cy="58" rx="5" ry="6" fill="#1a1025"/>
+              <circle cx="41" cy="56" r="1.5" fill="#fff"/>
+              <circle cx="61" cy="56" r="1.5" fill="#fff"/>
+              <!-- Nose -->
+              <ellipse cx="50" cy="64" rx="3" ry="2" fill="#ff5aa6"/>
+              <!-- Smirk -->
+              <path d="M45 70q5 5 10 0" stroke="#1a1025" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </span>
           <span>
             <strong>英语岛大冒险</strong>
             <small id="brand-subtitle">Animal Harbor</small>
@@ -46,14 +81,7 @@
         <h2>家长验证</h2>
         <p>请回答：<strong id="gate-question">7 + 5 = ?</strong></p>
         <label class="sr-only" for="gate-answer">答案</label>
-        <input
-          id="gate-answer"
-          class="gate-input"
-          inputmode="numeric"
-          autocomplete="off"
-          placeholder="输入答案"
-          required
-        />
+        <input id="gate-answer" class="gate-input" inputmode="numeric" autocomplete="off" placeholder="输入答案" required />
         <p class="form-error" id="gate-error"></p>
         <button class="primary-button wide" value="default">进入家长区</button>
       </form>
@@ -84,8 +112,8 @@
     </dialog>
 
     <noscript>这个游戏需要启用 JavaScript。</noscript>
-    <script src="game-core.js?v=10"></script>
-    <script src="levels.js?v=10"></script>
-    <script src="app.js?v=10"></script>
+    <script src="game-core.js?v=11"></script>
+    <script src="levels.js?v=11"></script>
+    <script src="app.js?v=11"></script>
   </body>
 </html>

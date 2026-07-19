@@ -31,4 +31,43 @@
   <path d="M352 180c30-45 45-95 40-140-25 35-55 65-90 85 15 20 35 40 50 55z" fill="url(#hoodGrad)"/>
 
   <!-- Main hood around face -->
-  <path d="M120 290c0-85 60-155 136-155s136 70 136 155c0 50-22 88-56 112-28 20-62 32-80
+  <path d="M120 290c0-85 60-155 136-155s136 70 136 155c0 50-22 88-56 112-28 20-62 32-80 32s-52-12-80-32c-34-24-56-62-56-112z" fill="url(#hoodGrad)"/>
+
+  <!-- Face oval -->
+  <ellipse cx="256" cy="300" rx="95" ry="85" fill="#fff8fb"/>
+
+  <!-- Pink skull on forehead -->
+  <g transform="translate(256, 250)">
+    <ellipse cx="0" cy="0" rx="22" ry="26" fill="#ff5aa6"/>
+    <circle cx="-8" cy="-6" r="5" fill="#1a1025"/>
+    <circle cx="8" cy="-6" r="5" fill="#1a1025"/>
+    <ellipse cx="0" cy="8" rx="6" ry="4" fill="#1a1025"/>
+  </g>
+
+  <!-- Eyes -->
+  <ellipse cx="216" cy="305" rx="16" ry="22" fill="#1a1025"/>
+  <ellipse cx="296" cy="305" rx="16" ry="22" fill="#1a1025"/>
+  <circle cx="220" cy="298" r="5" fill="#ffffff"/>
+  <circle cx="300" cy="298" r="5" fill="#ffffff"/>
+
+  <!-- Nose -->
+  <ellipse cx="256" cy="328" rx="7" ry="5" fill="#ff5aa6"/>
+
+  <!-- Smirk -->
+  <path d="M242 345q14 14 28 0" stroke="#1a1025" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Pink bow on left ear -->
+  <g transform="translate(130, 145) rotate(-15)">
+    <ellipse cx="-18" cy="0" rx="20" ry="14" fill="#ff5aa6"/>
+    <ellipse cx="18" cy="0" rx="20" ry="14" fill="#ff5aa6"/>
+    <circle cx="0" cy="0" r="10" fill="#ff3d8a"/>
+  </g>
+
+  <!-- Small blush -->
+  <ellipse cx="190" cy="325" rx="14" ry="10" fill="#ff8fc4" opacity="0.5"/>
+  <ellipse cx="322" cy="325" rx="14" ry="10" fill="#ff8fc4" opacity="0.5"/>
+
+  <!-- Tail -->
+  <path d="M360 380q30 10 40 35" stroke="url(#hoodGrad)" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <ellipse cx="405" cy="420" rx="10" ry="14" fill="#ff5aa6" transform="rotate(30 405 420)"/>
+</svg>

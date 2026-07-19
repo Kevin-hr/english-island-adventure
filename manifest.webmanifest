@@ -1,17 +1,17 @@
 {
-  "name": "英语岛大冒险 · 紫梦魔法版",
+  "name": "英语岛大冒险 · 紫梦兔乐园",
   "short_name": "英语岛",
-  "description": "面向5-7岁儿童的英语冒险闯关游戏。28关紫梦冒险，和库洛米一起学英语。",
+  "description": "面向5-7岁儿童的英语冒险闯关游戏。和原创紫梦兔一起完成28关学习冒险。",
   "lang": "zh-CN",
-  "start_url": "./index.html",
+  "start_url": "./index.html?v=11",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f5eaff",
-  "theme_color": "#7b4fd6",
+  "background_color": "#fbf9ff",
+  "theme_color": "#5f35b5",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "icon.svg?v=11",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
