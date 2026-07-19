@@ -1,17 +1,17 @@
 {
-  "name": "英语岛大冒险 · Kuromi Zone",
-  "short_name": "Kuromi Zone",
-  "description": "面向5-7岁儿童的英语冒险闯关游戏。和库洛米一起完成28关学习冒险——骷髅头蝴蝶结的暗黑可爱世界。",
+  "name": "英语岛大冒险 · 库洛米甜酷版",
+  "short_name": "英语岛",
+  "description": "面向5-7岁儿童的英语冒险闯关游戏。库洛米甜酷风，28关英语冒险，和库洛米一起学英语。",
   "lang": "zh-CN",
-  "start_url": "./index.html?v=13",
+  "start_url": "./index.html?v=15",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#fff8fb",
-  "theme_color": "#ff3d8a",
+  "theme_color": "#ff5aa6",
   "icons": [
     {
-      "src": "icon.svg?v=13",
+      "src": "icon.svg?v=15",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

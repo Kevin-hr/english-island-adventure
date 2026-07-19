@@ -8,10 +8,10 @@ $network = Get-NetIPConfiguration |
 $lanIp = $network.IPv4Address.IPAddress
 
 Write-Host '英语岛大冒险正在启动…' -ForegroundColor Cyan
-Write-Host "电脑地址：http://localhost:$port/?v=12" -ForegroundColor Green
+Write-Host "电脑地址：http://localhost:$port/?v=15" -ForegroundColor Green
 if ($lanIp) {
-  Write-Host "华为 Pad 从第 9 关继续：http://${lanIp}:$port/?v=12&resume=9" -ForegroundColor Yellow
+  Write-Host "华为 Pad 从第 9 关继续：http://${lanIp}:$port/?v=15&resume=9" -ForegroundColor Yellow
   Write-Host '请确保电脑和平板连接同一个家庭路由器。' -ForegroundColor DarkGray
 }
-Start-Process "http://localhost:$port/?v=12"
+Start-Process "http://localhost:$port/?v=15"
 python -m http.server $port --bind 0.0.0.0

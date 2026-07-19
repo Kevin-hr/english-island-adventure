@@ -3,45 +3,85 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ff3d8a" />
-    <meta name="description" content="面向5–7岁儿童的英语冒险闯关游戏。和库洛米一起完成28关学习冒险——骷髅头蝴蝶结的暗黑可爱世界。" />
-    <title>英语岛大冒险 · Kuromi Zone</title>
-    <link rel="manifest" href="manifest.webmanifest?v=13" />
-    <link rel="icon" href="icon.svg?v=13" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=13" />
+    <meta name="theme-color" content="#ff5aa6" />
+    <meta name="description" content="面向5–7岁儿童的英语冒险闯关游戏。库洛米甜酷风，28关英语冒险，和库洛米一起学英语。" />
+    <title>英语岛大冒险 · 库洛米甜酷版</title>
+    <link rel="manifest" href="manifest.webmanifest?v=15" />
+    <link rel="icon" href="icon.svg?v=15" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=15" />
   </head>
   <body>
     <!-- Kuromi floating decorative particles layer -->
     <div class="particles" aria-hidden="true">
-      <div class="particle skull" style="left:6%;top:10%;animation-delay:0s;font-size:18px;">💀</div>
-      <div class="particle heart" style="left:15%;top:32%;animation-delay:1.2s;">🖤</div>
+      <div class="particle bow" style="left:6%;top:10%;animation-delay:0s;font-size:18px;">🎀</div>
+      <div class="particle heart" style="left:15%;top:32%;animation-delay:1.2s;">💜</div>
       <div class="particle bow" style="left:88%;top:15%;animation-delay:2.5s;">🎀</div>
       <div class="particle star" style="left:75%;top:62%;animation-delay:0.8s;">✦</div>
       <div class="particle moon" style="left:4%;top:68%;animation-delay:3.1s;">🌙</div>
-      <div class="particle skull" style="left:93%;top:42%;animation-delay:1.8s;font-size:16px;">☠</div>
+      <div class="particle star" style="left:93%;top:42%;animation-delay:1.8s;font-size:16px;">✦</div>
       <div class="particle heart" style="left:48%;top:6%;animation-delay:4.2s;">♥</div>
       <div class="particle star" style="left:62%;top:90%;animation-delay:2.0s;">✦</div>
       <div class="particle bow" style="left:30%;top:85%;animation-delay:3.5s;font-size:16px;">🎀</div>
-      <div class="particle skull" style="left:82%;top:78%;animation-delay:0.5s;font-size:14px;">💀</div>
+      <div class="particle heart" style="left:82%;top:78%;animation-delay:0.5s;font-size:14px;">💜</div>
     </div>
 
     <div class="app-shell" id="app-shell">
       <header class="topbar">
         <button class="brand" id="home-button" aria-label="返回英语岛地图">
-          <span class="brand-mark" aria-hidden="true">🐈‍⬛</span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="brand-svg">
+              <defs>
+                <linearGradient id="bmBg" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#ff8fc4"/>
+                  <stop offset="100%" stop-color="#ff3d8a"/>
+                </linearGradient>
+                <linearGradient id="bmHood" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#2a1b3d"/>
+                  <stop offset="100%" stop-color="#0d0814"/>
+                </linearGradient>
+              </defs>
+              <rect width="100" height="100" rx="24" fill="url(#bmBg)"/>
+              <!-- Hood back -->
+              <path d="M22 56c0-20 12-36 28-36s28 16 28 36c0 10-5 18-12 24-6 5-12 7-16 7s-10-2-16-7c-7-6-12-14-12-24z" fill="url(#bmHood)"/>
+              <!-- Jester ears -->
+              <path d="M30 38c-6-9-9-20-6-30 5 6 10 13 13 21z" fill="url(#bmHood)"/>
+              <path d="M70 38c6-9 9-20 6-30-5 6-10 13-13 21z" fill="url(#bmHood)"/>
+              <!-- Face -->
+              <ellipse cx="50" cy="58" rx="20" ry="18" fill="#fff8fb"/>
+              <!-- Pink skull -->
+              <g transform="translate(50, 47)">
+                <path d="M-7 2c0-5 4-9 7-9s7 4 7 9c0 3-2 5-3 6l1 3c0 2-1 3-3 3h-4c-2 0-3-1-3-3l1-3c-1-1-3-3-3-6z" fill="#ff5aa6" stroke="#1a1025" stroke-width="1"/>
+                <circle cx="-3" cy="2" r="1.5" fill="#1a1025"/>
+                <circle cx="3" cy="2" r="1.5" fill="#1a1025"/>
+              </g>
+              <!-- Eyes -->
+              <ellipse cx="40" cy="62" rx="4" ry="5" fill="#1a1025"/>
+              <ellipse cx="60" cy="62" rx="4" ry="5" fill="#1a1025"/>
+              <circle cx="41" cy="60" r="1.3" fill="#fff"/>
+              <circle cx="61" cy="60" r="1.3" fill="#fff"/>
+              <!-- Smirk -->
+              <path d="M44 72 Q50 76 58 70" stroke="#1a1025" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <!-- Bow on right ear -->
+              <g transform="translate(72, 22) rotate(25)">
+                <ellipse cx="-4" cy="0" rx="4.5" ry="3" fill="#ff5aa6" stroke="#1a1025" stroke-width="0.8"/>
+                <ellipse cx="4" cy="0" rx="4.5" ry="3" fill="#ff5aa6" stroke="#1a1025" stroke-width="0.8"/>
+                <circle r="2" fill="#ff3d8a"/>
+              </g>
+            </svg>
+          </span>
           <span>
             <strong>英语岛大冒险</strong>
-            <small id="brand-subtitle">Kuromi Zone ☠</small>
+            <small id="brand-subtitle">Animal Island</small>
           </span>
         </button>
 
         <div class="topbar-actions">
-          <div class="spark-counter" aria-label="库洛米星星">
+          <div class="spark-counter" aria-label="星星火花">
             <span aria-hidden="true">✦</span>
             <strong id="spark-count">0</strong>
           </div>
           <button class="icon-button" id="sound-toggle" aria-label="关闭声音">🔊</button>
-          <button class="parent-button" id="parent-button">家长区 💀</button>
+          <button class="parent-button" id="parent-button">家长区</button>
         </div>
       </header>
 
@@ -67,9 +107,9 @@
       <section class="modal-card parent-panel">
         <button class="modal-close" id="close-parent-panel" aria-label="关闭">×</button>
         <div class="parent-heading">
-          <div class="modal-icon" aria-hidden="true">💀</div>
+          <div class="modal-icon" aria-hidden="true">🎀</div>
           <div>
-            <p class="eyebrow">Kuromi Zone</p>
+            <p class="eyebrow">家长面板</p>
             <h2>本机学习报告</h2>
           </div>
         </div>
@@ -88,8 +128,8 @@
     </dialog>
 
     <noscript>这个游戏需要启用 JavaScript。</noscript>
-    <script src="game-core.js?v=13"></script>
-    <script src="levels.js?v=13"></script>
-    <script src="app.js?v=13"></script>
+    <script src="game-core.js?v=15"></script>
+    <script src="levels.js?v=15"></script>
+    <script src="app.js?v=15"></script>
   </body>
 </html>

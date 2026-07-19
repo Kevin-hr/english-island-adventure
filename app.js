@@ -89,65 +89,8 @@
       .replaceAll("'", "&#039;");
   }
 
-  function zimiMascot() {
-    return `
-      <svg class="zimi-hero" viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="heroHood" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#2a1b3d"/>
-            <stop offset="100%" stop-color="#1a1025"/>
-          </linearGradient>
-          <linearGradient id="bowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ff5aa6"/>
-            <stop offset="100%" stop-color="#ff3d8a"/>
-          </linearGradient>
-        </defs>
-        <!-- Kuromi hood (black jester-style) -->
-        <path d="M50 165c0-60 42-108 94-108s94 48 94 108c0 35-15 61-38 78-20 14-42 22-56 22s-36-8-56-22c-23-17-38-43-38-78z" fill="url(#heroHood)"/>
-        <!-- Pointed Kuromi ears (not round rabbit) -->
-        <path d="M82 100l12-72 18 58z" fill="url(#heroHood)"/>
-        <path d="M158 100l-12-72-18 58z" fill="url(#heroHood)"/>
-        <!-- Inner ear pink -->
-        <path d="M88 88l6-48 12 40z" fill="#ff5aa6" opacity="0.6"/>
-        <path d="M152 88l-6-48-12 40z" fill="#ff5aa6" opacity="0.6"/>
-        <!-- White face -->
-        <ellipse cx="120" cy="168" rx="58" ry="52" fill="#fff8fb"/>
-        <!-- Kuromi skull-and-bow on forehead -->
-        <!-- Skull -->
-        <circle cx="108" cy="138" r="8" fill="white" stroke="#1a1025" stroke-width="2"/>
-        <circle cx="132" cy="138" r="8" fill="white" stroke="#1a1025" stroke-width="2"/>
-        <ellipse cx="120" cy="148" rx="6" ry="3" fill="white" stroke="#1a1025" stroke-width="1.5"/>
-        <line x1="116" y1="148" x2="124" y2="148" stroke="#1a1025" stroke-width="1"/>
-        <!-- Eyes (Kuromi style - angular/sulky) -->
-        <ellipse cx="100" cy="170" rx="9" ry="11" fill="#1a1025"/>
-        <ellipse cx="140" cy="170" rx="9" ry="11" fill="#1a1025"/>
-        <circle cx="103" cy="167" r="3" fill="#fff"/>
-        <circle cx="143" cy="167" r="3" fill="#fff"/>
-        <!-- Nose -->
-        <ellipse cx="120" cy="184" rx="3" ry="2.5" fill="#1a1025"/>
-        <!-- Kuromi smirk -->
-        <path d="M108 192q12 2 24 0" stroke="#1a1025" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <!-- Blush -->
-        <ellipse cx="84" cy="186" rx="10" ry="6" fill="#ff8fc4" opacity="0.45"/>
-        <ellipse cx="156" cy="186" rx="10" ry="6" fill="#ff8fc4" opacity="0.45"/>
-        <!-- Kuromi bow (left ear) -->
-        <g transform="translate(62, 48) rotate(-25)">
-          <ellipse cx="-8" cy="0" rx="12" ry="8" fill="url(#bowGrad)" stroke="#1a1025" stroke-width="1.5"/>
-          <ellipse cx="8" cy="0" rx="12" ry="8" fill="url(#bowGrad)" stroke="#1a1025" stroke-width="1.5"/>
-          <circle r="4" fill="#ff3d8a" stroke="#1a1025" stroke-width="1"/>
-          <!-- Mini skull on bow -->
-          <circle cx="0" cy="-1" r="2.5" fill="white"/>
-          <circle cx="-1" cy="-1.5" r="0.7" fill="#1a1025"/>
-          <circle cx="1" cy="-1.5" r="0.7" fill="#1a1025"/>
-        </g>
-        <!-- Tail -->
-        <path d="M172 210q16 4 22 18" stroke="url(#heroHood)" stroke-width="7" stroke-linecap="round" fill="none"/>
-        <ellipse cx="198" cy="232" rx="6" ry="8" fill="#ff5aa6" transform="rotate(25 198 232)"/>
-        <!-- Floating hearts -->
-        <text x="30" y="210" font-size="16" fill="#ff5aa6" opacity="0.7">♥</text>
-        <text x="185" y="145" font-size="12" fill="#c49dff" opacity="0.6">✦</text>
-      </svg>
-    `;
+  function kuromiMascot() {
+    return `<img class="kuromi-hero" src="assets/kuromi-mascot.webp" alt="Kuromi" aria-hidden="true" />`;
   }
 
   function promptDisplay(config) {
@@ -304,19 +247,25 @@
     const activeWorld = worlds.find((world) => world.id === nextLevelConfig.worldId) || worlds[0];
     brandSubtitle.textContent = activeWorld.englishTitle;
     const heroTitles = {
-      "animal-harbor": "听英语，救伙伴，点亮灯塔",
-      "school-city": "小学城正在等你报到",
-      "life-town": "把英语带进每天生活",
-      "idiom-island": "打开四个成语彩蛋",
+      "animal-island": "听英语，认动物，点亮动物岛",
+      "school-island": "校园岛正在等你报到",
+      "life-island": "把英语带进每天生活",
+      "food-island": "在美食岛品尝英语味道",
+      "feeling-island": "用英语说出你的心情",
+      "nature-island": "探索大自然的英语词汇",
+      "family-island": "和家人一起学英语",
+      "sport-island": "运动起来，学动作用语",
+      "body-island": "认识身体，学会表达",
+      "rainbow-island": "彩虹冒险，终极挑战",
     };
 
     screen.innerHTML = `
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">${escapeHtml(activeWorld.englishTitle)} · ${escapeHtml(activeWorld.title)}</p>
-          <h1>${allComplete ? "四座学习岛全部点亮！" : heroTitles[activeWorld.id]}</h1>
+          <h1>${allComplete ? "十座岛屿全部点亮！" : heroTitles[activeWorld.id]}</h1>
           <p class="hero-lead">
-            ${escapeHtml(activeWorld.description)} 已完成的动物港进度会继续保留。
+            ${escapeHtml(activeWorld.description)} 已完成的关卡进度会继续保留。
           </p>
           <button class="primary-button" id="continue-button">
             ${allComplete ? "重玩最后一关" : `继续第 ${nextLevel} 关`}
@@ -332,8 +281,8 @@
           <div class="dream-reward reward-gem" aria-hidden="true">◆</div>
           <div class="dream-reward reward-note" aria-hidden="true">♪</div>
           <div class="dream-companion dream-bat" aria-hidden="true"><span>🦇</span></div>
-          ${zimiMascot()}
-          <div class="dream-companion star-cat" aria-hidden="true"><span>🐈‍⬛</span></div>
+          ${kuromiMascot()}
+          <div class="dream-companion star-cat" aria-hidden="true"><span>🐰</span></div>
           <div class="world-badge" aria-hidden="true">${activeWorld.scene[1]}</div>
         </div>
       </section>
@@ -420,7 +369,7 @@
         </div>
         <article class="level-card-main">
           <header class="level-heading">
-            <div class="nori" aria-hidden="true"><span class="mini-zimi-face">•ᴗ•</span></div>
+            <div class="nori" aria-hidden="true"><span class="mini-kuromi-face">•ᴗ•</span></div>
             <div>
               <p class="eyebrow">Mission ${level.number}</p>
               <h1>${escapeHtml(level.title)}</h1>
@@ -1127,7 +1076,7 @@
       </section>
       <section class="parent-section">
         <h3>今天可以一起说</h3>
-        <p><strong>${summary.completed >= 24 ? "See you tomorrow!" : summary.completed >= 16 ? "Can I have some water, please?" : summary.completed >= 8 ? "Good morning, Ms. Lee." : summary.completed >= 6 ? "I see a cat." : summary.completed >= 2 ? "Give me the red key." : "Find the cat."}</strong></p>
+        <p><strong>${summary.completed >= 150 ? "See you tomorrow!" : summary.completed >= 100 ? "Can I have some water, please?" : summary.completed >= 60 ? "Good morning, teacher!" : summary.completed >= 30 ? "I see a cat." : summary.completed >= 10 ? "Find the red key." : "Hello! I am Nori."}</strong></p>
         <p class="privacy-note">在家里找一个对应物品，家长说英文，孩子用手指出来。30 秒就够。</p>
       </section>
       <section class="parent-section">
