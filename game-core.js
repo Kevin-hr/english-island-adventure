@@ -5,7 +5,8 @@
 })(typeof globalThis !== "undefined" ? globalThis : this, function createGameCore() {
   "use strict";
 
-  const VERSION = 1;
+  const VERSION = 2;
+  const ECHO_PLAYBACK_RATES = [0.75, 0.5, 0.25];
 
   function initialState() {
     return {
@@ -18,7 +19,7 @@
       settings: {
         sound: true,
         reduceMotion: false,
-        speechEnabled: false,
+        speechEnabled: true,
         voiceName: "",
         timeLimitMinutes: 15,
       },
@@ -55,7 +56,8 @@
       settings: {
         sound: raw.settings?.sound !== false,
         reduceMotion: raw.settings?.reduceMotion === true,
-        speechEnabled: raw.settings?.speechEnabled === true,
+        speechEnabled:
+          raw.version === VERSION ? raw.settings?.speechEnabled !== false : true,
         voiceName: typeof raw.settings?.voiceName === "string" ? raw.settings.voiceName : "",
         timeLimitMinutes: [10, 15, 20].includes(raw.settings?.timeLimitMinutes)
           ? raw.settings.timeLimitMinutes
@@ -130,6 +132,11 @@
     };
   }
 
+  function normalizePlaybackRate(value, fallback = 1) {
+    const numeric = Number(value);
+    return ECHO_PLAYBACK_RATES.includes(numeric) ? numeric : fallback;
+  }
+
   return {
     VERSION,
     initialState,
@@ -140,5 +147,7 @@
     progressPercent,
     parentSummary,
     classifyVoiceActivity,
+    ECHO_PLAYBACK_RATES,
+    normalizePlaybackRate,
   };
 });

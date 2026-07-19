@@ -1,14 +1,14 @@
 {
-  "name": "英语岛大冒险",
+  "name": "英语岛大冒险 · 紫梦魔法版",
   "short_name": "英语岛",
-  "description": "听、说、拖、拼，修复动物港。",
+  "description": "面向5-7岁儿童的英语冒险闯关游戏。28关紫梦冒险，和库洛米一起学英语。",
   "lang": "zh-CN",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#dff6f4",
-  "theme_color": "#0f6f72",
+  "background_color": "#f5eaff",
+  "theme_color": "#7b4fd6",
   "icons": [
     {
       "src": "icon.svg",

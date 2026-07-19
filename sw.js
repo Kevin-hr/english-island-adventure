@@ -1,13 +1,15 @@
-const CACHE_NAME = "english-island-v4";
+const CACHE_NAME = "english-island-v9";
 const APP_FILES = [
   "./",
+  "./?v=9",
+  "./?v=9&resume=9",
   "./index.html",
-  "./styles.css",
-  "./game-core.js",
-  "./levels.js",
-  "./app.js",
-  "./manifest.webmanifest",
-  "./icon.svg",
+  "./styles.css?v=9",
+  "./game-core.js?v=9",
+  "./levels.js?v=9",
+  "./app.js?v=9",
+  "./manifest.webmanifest?v=9",
+  "./icon.svg?v=9",
   "./audio/level-1-find-cat.mp3",
   "./audio/level-2-red-key.mp3",
   "./audio/level-3-dog-boat.mp3",

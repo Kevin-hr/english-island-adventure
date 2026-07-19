@@ -9,6 +9,7 @@ const levels = Array.from({ length: 8 }, (_, index) => ({
 
 test("initial state unlocks only the first level", () => {
   const state = core.initialState();
+  assert.equal(state.settings.speechEnabled, true);
   assert.equal(core.isLevelUnlocked(state, 1), true);
   assert.equal(core.isLevelUnlocked(state, 2), false);
   assert.equal(core.nextLevelNumber(state, levels.length), 1);
@@ -55,8 +56,25 @@ test("sanitizing damaged storage keeps safe settings and valid levels", () => {
   assert.deepEqual(state.learnedWords, ["cat"]);
   assert.equal(state.settings.sound, false);
   assert.equal(state.settings.reduceMotion, true);
+  assert.equal(state.settings.speechEnabled, true);
   assert.equal(state.settings.voiceName, "");
   assert.equal(state.settings.timeLimitMinutes, 15);
+});
+
+test("current users can explicitly turn microphone challenges off", () => {
+  const state = core.sanitizeState(
+    { version: core.VERSION, settings: { speechEnabled: false } },
+    levels.length,
+  );
+  assert.equal(state.settings.speechEnabled, false);
+});
+
+test("echo playback accepts exactly the three requested speeds", () => {
+  assert.deepEqual(core.ECHO_PLAYBACK_RATES, [0.75, 0.5, 0.25]);
+  assert.equal(core.normalizePlaybackRate("0.75"), 0.75);
+  assert.equal(core.normalizePlaybackRate("0.5"), 0.5);
+  assert.equal(core.normalizePlaybackRate("0.25"), 0.25);
+  assert.equal(core.normalizePlaybackRate("0.92", 0.75), 0.75);
 });
 
 test("parent summary is deterministic", () => {

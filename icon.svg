@@ -1,10 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#0f6f72"/>
-  <circle cx="382" cy="122" r="54" fill="#ffd76b"/>
-  <path d="M0 337c86-54 154-32 224 7s146 52 288-18v186H0z" fill="#9ee4e1"/>
-  <path d="M135 319h242l-43 69H176z" fill="#fff9e9"/>
-  <path d="M256 110v211" stroke="#fff9e9" stroke-width="24" stroke-linecap="round"/>
-  <path d="M269 132c71 24 112 70 121 139H269z" fill="#ff806d"/>
-  <path d="M243 154c-54 26-88 64-101 117h101z" fill="#ffd76b"/>
-  <circle cx="257" cy="411" r="18" fill="#ff806d"/>
-</svg>
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff5aa6"/>
+      <stop offset="100%" style="stop-color:#ff3d8a"/>
+    </linearGradient>
+    <linearGradient id="hoodGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a1b3d"/>
+      <stop offset="100%" style="stop-color:#1a1025"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+
+  <!-- Decorative stars -->
+  <g fill="#ffffff" opacity="0.35">
+    <circle cx="70" cy="90" r="10"/>
+    <circle cx="440" cy="70" r="8"/>
+    <circle cx="80" cy="420" r="8"/>
+    <circle cx="430" cy="430" r="10"/>
+    <path d="M120 60 l8 18 18 8 -18 8 -8 18 -8 -18 -18 -8 18 -8 z"/>
+    <path d="M390 120 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6 z"/>
+  </g>
+
+  <!-- Kuromi hood / head -->
+  <path d="M120 290c0-95 68-172 152-172s152 77 152 172c0 55-24 96-62 122-32 22-68 34-90 34s-58-12-90-34c-38-26-62-67-62-122z" fill="#fff8fb"/>
+
+  <!-- Jester ears / hood points -->
+  <path d="M160 180c-30-45-45-95-40-140 25 35 55 65 90 85-15 20-35 40-50 55z" fill="url(#hoodGrad)"/>
+  <path d="M352 180c30-45 45-95 40-140-25 35-55 65-90 85 15 20 35 40 50 55z" fill="url(#hoodGrad)"/>
+
+  <!-- Main hood around face -->
+  <path d="M120 290c0-85 60-155 136-155s136 70 136 155c0 50-22 88-56 112-28 20-62 32-80
