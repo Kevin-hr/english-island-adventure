@@ -1,4 +1,4 @@
-(function runGame() {
+﻿(function runGame() {
   "use strict";
 
   const STORAGE_KEY = "english-island-adventure-state";
@@ -10,7 +10,6 @@
   const sparkCount = document.querySelector("#spark-count");
   const soundToggle = document.querySelector("#sound-toggle");
   const homeButton = document.querySelector("#home-button");
-  const brandSubtitle = document.querySelector("#brand-subtitle");
   const parentButton = document.querySelector("#parent-button");
   const toast = document.querySelector("#toast");
   const gateDialog = document.querySelector("#parent-gate-dialog");
@@ -43,26 +42,11 @@
   let speechRequestId = 0;
   let englishVoices = [];
   let activeAudio = null;
-  let activeSpeechFinish = null;
-  let activeSpeechCancel = null;
 
   function loadState() {
     try {
       const raw = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      const loaded = core.sanitizeState(raw, levels.length);
-      const isFirstTabletResume =
-        new URLSearchParams(window.location.search).get("resume") === "9" &&
-        loaded.completedLevels.length === 0;
-      if (!isFirstTabletResume) return loaded;
-
-      const resumed = {
-        ...loaded,
-        completedLevels: levels.slice(0, 8).map((level) => level.id),
-        learnedWords: [...new Set(levels.slice(0, 8).flatMap((level) => level.words || []))],
-        sparks: 24,
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(resumed));
-      return resumed;
+      return core.sanitizeState(raw, levels.length);
     } catch (_error) {
       return core.initialState();
     }
@@ -91,16 +75,6 @@
 
   function kuromiMascot() {
     return `<img class="kuromi-hero" src="assets/kuromi-mascot.webp" alt="Kuromi" aria-hidden="true" />`;
-  }
-
-  function promptDisplay(config) {
-    const isListeningAnswer = ["choice", "story", "sound-match", "action"].includes(
-      config.type,
-    );
-    if (isListeningAnswer) return "🔊 听声音，找答案";
-    if (config.type === "word-forge") return "🔊 听顺序，拼单词";
-    if (config.type === "echo") return "🔊 听示范，大声说";
-    return escapeHtml(config.prompt);
   }
 
   function showToast(message) {
@@ -140,9 +114,6 @@
 
   function stopVoice() {
     speechRequestId += 1;
-    activeSpeechCancel?.();
-    activeSpeechFinish = null;
-    activeSpeechCancel = null;
     if (activeAudio) {
       activeAudio.pause();
       activeAudio.currentTime = 0;
@@ -153,10 +124,6 @@
 
   function speak(text, options = {}) {
     if (!state.settings.sound) return;
-    const playbackRate = core.normalizePlaybackRate(
-      options.rate,
-      options.slow ? 0.75 : 1,
-    );
     const requestId = ++speechRequestId;
     if (activeAudio) {
       activeAudio.pause();
@@ -169,10 +136,9 @@
       if (requestId !== speechRequestId || !state.settings.sound) return;
       if (!("speechSynthesis" in window)) return;
       const utterance = new SpeechSynthesisUtterance(text);
-      const hasChinese = /[\u4e00-\u9fff]/.test(text);
-      utterance.lang = hasChinese ? "zh-CN" : "en-US";
-      utterance.rate = hasChinese ? playbackRate * 0.9 : playbackRate;
-      utterance.pitch = hasChinese ? 1.1 : 1;
+      utterance.lang = "en-US";
+      utterance.rate = options.slow ? 0.68 : 0.8;
+      utterance.pitch = 1;
       utterance.volume = 0.96;
       utterance.voice = preferredVoice();
       window.speechSynthesis.speak(utterance);
@@ -190,8 +156,7 @@
       const audio = new Audio(options.clip);
       activeAudio = audio;
       audio.preload = "auto";
-      audio.playbackRate = playbackRate;
-      audio.preservesPitch = true;
+      audio.playbackRate = options.slow ? 0.92 : 1;
       audio.addEventListener("error", fallback, { once: true });
       audio.addEventListener(
         "ended",
@@ -245,27 +210,20 @@
     const allComplete = state.completedLevels.length === levels.length;
     const nextLevelConfig = levels[(allComplete ? levels.length : nextLevel) - 1];
     const activeWorld = worlds.find((world) => world.id === nextLevelConfig.worldId) || worlds[0];
-    brandSubtitle.textContent = activeWorld.englishTitle;
     const heroTitles = {
-      "animal-island": "听英语，认动物，点亮动物岛",
-      "school-island": "校园岛正在等你报到",
-      "life-island": "把英语带进每天生活",
-      "food-island": "在美食岛品尝英语味道",
-      "feeling-island": "用英语说出你的心情",
-      "nature-island": "探索大自然的英语词汇",
-      "family-island": "和家人一起学英语",
-      "sport-island": "运动起来，学动作用语",
-      "body-island": "认识身体，学会表达",
-      "rainbow-island": "彩虹冒险，终极挑战",
+      "animal-harbor": "听英语，救伙伴，点亮灯塔",
+      "school-city": "小学城正在等你报到",
+      "life-town": "把英语带进每天生活",
+      "idiom-island": "打开四个成语彩蛋",
     };
 
     screen.innerHTML = `
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">${escapeHtml(activeWorld.englishTitle)} · ${escapeHtml(activeWorld.title)}</p>
-          <h1>${allComplete ? "十座岛屿全部点亮！" : heroTitles[activeWorld.id]}</h1>
+          <h1>${allComplete ? "四座学习岛全部点亮！" : heroTitles[activeWorld.id]}</h1>
           <p class="hero-lead">
-            ${escapeHtml(activeWorld.description)} 已完成的关卡进度会继续保留。
+            ${escapeHtml(activeWorld.description)} 已完成的动物港进度会继续保留。
           </p>
           <button class="primary-button" id="continue-button">
             ${allComplete ? "重玩最后一关" : `继续第 ${nextLevel} 关`}
@@ -275,15 +233,11 @@
             <div class="progress-track"><div class="progress-fill" style="width:${progress}%"></div></div>
           </div>
         </div>
-        <div class="harbor-scene" aria-label="库洛米和伙伴们">
-          <div class="dream-reward reward-heart" aria-hidden="true">♥</div>
-          <div class="dream-reward reward-star" aria-hidden="true">✦</div>
-          <div class="dream-reward reward-gem" aria-hidden="true">◆</div>
-          <div class="dream-reward reward-note" aria-hidden="true">♪</div>
-          <div class="dream-companion dream-bat" aria-hidden="true"><span>🦇</span></div>
+        <div class="harbor-scene" aria-label="${escapeHtml(activeWorld.title)}插画">
+          <div class="harbor-art" aria-hidden="true">
+            ${activeWorld.scene.map((item) => `<span>${item}</span>`).join("")}
+          </div>
           ${kuromiMascot()}
-          <div class="dream-companion star-cat" aria-hidden="true"><span>🐰</span></div>
-          <div class="world-badge" aria-hidden="true">${activeWorld.scene[1]}</div>
         </div>
       </section>
 
@@ -332,7 +286,6 @@
         <span class="level-status" aria-hidden="true">${status}</span>
         <h3>${escapeHtml(level.title)}</h3>
         <p>${escapeHtml(level.skill)}</p>
-        <div class="jester-collar" aria-hidden="true"></div>
       </button>
     `;
   }
@@ -353,8 +306,6 @@
   }
 
   function renderLevel() {
-    const currentWorld = worlds.find((world) => world.id === currentLevel.worldId);
-    brandSubtitle.textContent = currentWorld?.englishTitle || "Learning Islands";
     const level = currentLevel;
     const progress = Math.round((level.number / levels.length) * 100);
     screen.innerHTML = `
@@ -369,7 +320,7 @@
         </div>
         <article class="level-card-main">
           <header class="level-heading">
-            <div class="nori" aria-hidden="true"><span class="mini-kuromi-face">•ᴗ•</span></div>
+            <div class="nori" aria-hidden="true">⛵</div>
             <div>
               <p class="eyebrow">Mission ${level.number}</p>
               <h1>${escapeHtml(level.title)}</h1>
@@ -377,7 +328,7 @@
             </div>
           </header>
           <div class="mission-callout" id="mission-callout">
-            <strong>${promptDisplay(level)}</strong>
+            <strong>${escapeHtml(level.prompt)}</strong>
             <small>${escapeHtml(level.instruction)}</small>
           </div>
           <div class="interaction-area" id="interaction-area"></div>
@@ -437,6 +388,26 @@
   }
 
   function renderChoice(config, onSolved) {
+    let hoverTimer = null;
+
+    const stopHoverSpeak = () => {
+      if (hoverTimer !== null) {
+        window.clearTimeout(hoverTimer);
+        hoverTimer = null;
+      }
+    };
+
+    const speakOptionLabel = (label) => {
+      if (!state.settings.sound || answerLocked) return;
+      stopHoverSpeak();
+      hoverTimer = window.setTimeout(() => {
+        if (!answerLocked) {
+          speak(label, { slow: true });
+        }
+        hoverTimer = null;
+      }, 150);
+    };
+
     const root = interactionRoot();
     root.innerHTML = `
       <div class="choice-grid" style="--choice-count:${Math.min(config.options.length, 3)}">
@@ -455,14 +426,22 @@
     `;
 
     root.querySelectorAll(".choice-card").forEach((button) => {
+      const label = button.getAttribute("aria-label");
+
+      button.addEventListener("mouseenter", () => speakOptionLabel(label));
+      button.addEventListener("mouseleave", stopHoverSpeak);
+      button.addEventListener("focus", () => speakOptionLabel(label));
+
       button.addEventListener("click", () => {
         if (answerLocked) return;
         if (button.dataset.answer === config.answer) {
           currentMetrics.interactions += 1;
           answerLocked = true;
+          stopHoverSpeak();
           button.classList.add("hint");
           correctFeedback(config.success || "You got it!");
-          window.setTimeout(onSolved, 700);
+          speak(label, { slow: true });
+          window.setTimeout(onSolved, 900);
           return;
         }
 
@@ -472,7 +451,7 @@
         void button.offsetWidth;
         button.classList.add("wrong");
         const feedback = document.querySelector("#feedback");
-        feedback.textContent = currentMetrics.mistakes >= 2 ? "再听一次，发光的卡片会帮你" : "库洛米没听懂，再试一次";
+        feedback.textContent = currentMetrics.mistakes >= 2 ? "再听一次，发光的卡片会帮你" : "Nori 没听懂，我们再试一次";
         feedback.classList.add("hint-text");
         if (currentMetrics.mistakes >= 2) {
           root.querySelector(`[data-answer="${CSS.escape(config.answer)}"]`)?.classList.add("hint");
@@ -636,7 +615,6 @@
   function renderEcho(config, onSolved) {
     const root = interactionRoot();
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    let playbackRate = 0.75;
     const canUseMicrophone = Boolean(
       state.settings.speechEnabled &&
         (Recognition || navigator.mediaDevices?.getUserMedia),
@@ -645,16 +623,10 @@
       <div class="echo-stage">
         <div class="echo-visual" aria-hidden="true">🌉</div>
         <div class="echo-actions">
-          <div class="echo-speed-picker" aria-label="示范速度">
-            ${core.ECHO_PLAYBACK_RATES.map(
-              (rate) =>
-                `<button class="speed-option ${rate === playbackRate ? "selected" : ""}" data-speed="${rate}" type="button">${rate.toFixed(2)}×</button>`,
-            ).join("")}
-          </div>
-          <button class="echo-button" id="listen-echo" data-rate="${playbackRate}">🔊 按 0.75× 示范</button>
+          <button class="echo-button" id="listen-echo">🔊 听慢速示范</button>
           ${
             canUseMicrophone
-              ? '<button class="echo-button mic" id="start-mic">🎙️ 开始说</button>'
+              ? '<button class="echo-button mic" id="start-mic">🎙️ 我来说</button>'
               : '<button class="echo-button" id="enable-mic">🎙️ 家长开启麦克风</button>'
           }
           <button class="echo-button" id="echo-fallback" disabled>🙌 我跟读了</button>
@@ -663,19 +635,8 @@
       <p class="feedback" id="feedback">先听示范，再大声跟读</p>
     `;
 
-    const listenButton = root.querySelector("#listen-echo");
-    root.querySelectorAll("[data-speed]").forEach((button) => {
-      button.addEventListener("click", () => {
-        playbackRate = core.normalizePlaybackRate(button.dataset.speed, 0.75);
-        root.querySelectorAll("[data-speed]").forEach((option) => {
-          option.classList.toggle("selected", option === button);
-        });
-        listenButton.dataset.rate = String(playbackRate);
-        listenButton.textContent = `🔊 按 ${playbackRate.toFixed(2)}× 示范`;
-      });
-    });
-    listenButton.addEventListener("click", () => {
-      speak(config.prompt, { rate: playbackRate, clip: config.audio });
+    root.querySelector("#listen-echo").addEventListener("click", () => {
+      speak(config.prompt, { slow: true, clip: config.audio });
       unlockEchoFallback();
     });
     root.querySelector("#echo-fallback").addEventListener("click", () => {
@@ -715,7 +676,7 @@
     if (button) button.disabled = false;
   }
 
-  async function measureVoiceActivity(stopPromise, maximumDurationMs = 12000) {
+  async function measureVoiceActivity(durationMs = 3200) {
     if (!navigator.mediaDevices?.getUserMedia) {
       return { detected: false, unavailable: true, activeFrames: 0, peak: 0 };
     }
@@ -750,15 +711,10 @@
           }
           samples.push(Math.sqrt(squared / buffer.length));
         }, 70);
-        const timeout = window.setTimeout(() => {
+        window.setTimeout(() => {
           window.clearInterval(interval);
           resolve();
-        }, maximumDurationMs);
-        stopPromise.then(() => {
-          window.clearInterval(interval);
-          window.clearTimeout(timeout);
-          resolve();
-        });
+        }, durationMs);
       });
       return core.classifyVoiceActivity(samples);
     } finally {
@@ -768,11 +724,6 @@
   }
 
   async function startSpeechChallenge(config, onSolved) {
-    if (activeSpeechFinish) {
-      activeSpeechFinish();
-      return;
-    }
-
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const canMeasureVoice = Boolean(navigator.mediaDevices?.getUserMedia);
     if (!Recognition && !canMeasureVoice) {
@@ -784,31 +735,15 @@
     stopVoice();
     const micButton = document.querySelector("#start-mic");
     const feedback = document.querySelector("#feedback");
-    micButton.disabled = false;
-    micButton.textContent = "⏹️ 说完了";
-    feedback.textContent = "正在听你说；说完后点一下“说完了”";
+    micButton.disabled = true;
+    micButton.textContent = "🎙️ 正在听…";
+    feedback.textContent = "Nori 正在认真听";
 
     let finished = false;
-    let stopRequested = false;
     let exactMatch = false;
     let recognition = null;
-    let recognitionTimer = null;
-    let maximumTimer = null;
-    let recognitionDone = !Recognition;
-    let activityDone = !canMeasureVoice;
-    let activityResult = null;
-    let activityFailureMessage = "";
-    let resolveActivityStop = null;
-    const activityStopPromise = new Promise((resolve) => {
-      resolveActivityStop = resolve;
-    });
 
     const cleanupRecognition = () => {
-      window.clearTimeout(recognitionTimer);
-      window.clearTimeout(maximumTimer);
-      resolveActivityStop?.();
-      if (activeSpeechFinish === requestStop) activeSpeechFinish = null;
-      if (activeSpeechCancel === cancelSession) activeSpeechCancel = null;
       if (!recognition) return;
       recognition.onresult = null;
       recognition.onerror = null;
@@ -842,57 +777,6 @@
       unlockEchoFallback();
     };
 
-    const evaluatePendingResults = () => {
-      if (finished || answerLocked) return;
-      if (!stopRequested) return;
-      if (exactMatch) {
-        succeed(config.success || config.prompt);
-        return;
-      }
-      if (activityResult?.detected) {
-        succeed("听到你开口了！跟读完成（本次不做发音评分）");
-        return;
-      }
-      if (!recognitionDone || !activityDone) return;
-      retry(
-        activityFailureMessage ||
-          "英文内容还没听清，也没检测到持续说话声。靠近一点，再大声说一次",
-      );
-    };
-
-    function requestStop() {
-      if (finished || stopRequested) return;
-      stopRequested = true;
-      micButton.disabled = true;
-      micButton.textContent = "⏳ 正在判断…";
-      feedback.textContent = "收到，正在判断";
-      resolveActivityStop?.();
-      if (!recognition) {
-        recognitionDone = true;
-      } else {
-        try {
-          recognition.stop();
-        } catch (_error) {
-          recognitionDone = true;
-        }
-        recognitionTimer = window.setTimeout(() => {
-          recognitionDone = true;
-          evaluatePendingResults();
-        }, 700);
-      }
-      evaluatePendingResults();
-    }
-
-    function cancelSession() {
-      if (finished) return;
-      finished = true;
-      cleanupRecognition();
-    }
-
-    activeSpeechFinish = requestStop;
-    activeSpeechCancel = cancelSession;
-    maximumTimer = window.setTimeout(requestStop, 12000);
-
     if (Recognition) {
       recognition = new Recognition();
       recognition.lang = "en-US";
@@ -907,50 +791,45 @@
         exactMatch = alternatives.some((text) =>
           accepted.some((phrase) => text.includes(phrase)),
         );
-        if (exactMatch && !stopRequested) {
-          feedback.textContent = "已经听到了，点击“说完了”结束";
+        if (exactMatch) {
+          succeed(config.success || config.prompt);
         }
-        evaluatePendingResults();
       };
       recognition.onerror = () => {
-        recognitionDone = true;
-        evaluatePendingResults();
-      };
-      recognition.onend = () => {
-        recognitionDone = true;
-        evaluatePendingResults();
+        if (!canMeasureVoice) retry("麦克风没有听清，不算错；请再试一次");
       };
       try {
         recognition.start();
       } catch (_error) {
-        recognitionDone = true;
-        evaluatePendingResults();
+        if (!canMeasureVoice) retry("麦克风暂时不可用，请使用跟读按钮继续");
       }
     }
 
-    if (!canMeasureVoice) {
-      evaluatePendingResults();
-      return;
-    }
+    if (!canMeasureVoice) return;
 
     try {
-      activityResult = await measureVoiceActivity(activityStopPromise);
-      activityDone = true;
+      const activity = await measureVoiceActivity();
       if (finished) return;
-      evaluatePendingResults();
+      if (activity.detected) {
+        succeed(
+          exactMatch
+            ? config.success || config.prompt
+            : "听到你开口了！跟读完成（本次不做发音评分）",
+        );
+      } else {
+        retry("我还没听到持续的声音。靠近一点，再大声说一次");
+      }
     } catch (_error) {
-      activityDone = true;
-      activityFailureMessage = Recognition
-        ? "英文识别没有听清，开口检测也没有麦克风权限；请再试一次或用跟读按钮继续"
-        : "麦克风权限没有打开；你可以请家长允许，或用跟读按钮继续";
-      evaluatePendingResults();
+      if (!finished) {
+        retry("麦克风权限没有打开；你可以请家长允许，或用跟读按钮继续");
+      }
     }
   }
 
   function renderBossStep() {
     const step = currentLevel.steps[bossStepIndex];
     const callout = document.querySelector("#mission-callout");
-    callout.innerHTML = `<strong>${promptDisplay(step)}</strong><small>任务 ${bossStepIndex + 1}/4 · ${escapeHtml(step.instruction)}</small>`;
+    callout.innerHTML = `<strong>${escapeHtml(step.prompt)}</strong><small>任务 ${bossStepIndex + 1}/4 · ${escapeHtml(step.instruction)}</small>`;
     const root = interactionRoot();
     answerLocked = false;
     forgePicked = [];
@@ -1003,8 +882,6 @@
   }
 
   function renderCompletion() {
-    const currentWorld = worlds.find((world) => world.id === currentLevel.worldId);
-    brandSubtitle.textContent = currentWorld?.englishTitle || "Learning Islands";
     const isBoss = currentLevel.type === "boss";
     const isLast = currentLevel.number === levels.length;
     const world = worlds.find((item) => item.id === currentLevel.worldId) || worlds[0];
@@ -1076,7 +953,7 @@
       </section>
       <section class="parent-section">
         <h3>今天可以一起说</h3>
-        <p><strong>${summary.completed >= 150 ? "See you tomorrow!" : summary.completed >= 100 ? "Can I have some water, please?" : summary.completed >= 60 ? "Good morning, teacher!" : summary.completed >= 30 ? "I see a cat." : summary.completed >= 10 ? "Find the red key." : "Hello! I am Nori."}</strong></p>
+        <p><strong>${summary.completed >= 24 ? "See you tomorrow!" : summary.completed >= 16 ? "Can I have some water, please?" : summary.completed >= 8 ? "Good morning, Ms. Lee." : summary.completed >= 6 ? "I see a cat." : summary.completed >= 2 ? "Give me the red key." : "Find the cat."}</strong></p>
         <p class="privacy-note">在家里找一个对应物品，家长说英文，孩子用手指出来。30 秒就够。</p>
       </section>
       <section class="parent-section">
@@ -1133,10 +1010,10 @@
       saveState();
     });
     parentReport.querySelector("#preview-voice").addEventListener("click", () => {
-      speak("Hello! I am Kuromi. Let's go to Animal Harbor.");
+      speak("Hello! I am Nori. Let's go to Animal Harbor.");
     });
     parentReport.querySelector("#preview-course").addEventListener("click", () => {
-      speak("Hello! I am Kuromi. Let's go to Animal Harbor.", {
+      speak("Hello! I am Nori. Let's go to Animal Harbor.", {
         clip: "audio/nori-preview.mp3",
       });
     });
